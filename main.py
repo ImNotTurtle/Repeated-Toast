@@ -73,7 +73,7 @@ if __name__ == "__main__":
         body = sys.argv[2]
         duration = sys.argv[3]
         iconPath = ""
-        repeatInterval = sys.argv[4]
+        repeatInterval = sys.argv[5]
 
         if len(sys.argv) >= 6 and issubclass(type(sys.argv[4]), str): # use icon
             iconPath = sys.argv[4]
