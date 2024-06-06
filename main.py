@@ -7,14 +7,9 @@ import time
 from datetime import datetime, timedelta
 
 
-# Lấy đường dẫn của file đang thực thi
-current_file_path = os.path.abspath(__file__)
-
-# Lấy đường dẫn tới thư mục chứa file đang thực thi
-parent_directory = os.path.dirname(current_file_path)
-
-# Đường dẫn mặc định tới file icon
-DEFAULT_ICON_PATH = parent_directory + "/bell.ico"
+cwd = os.path.abspath(__file__)
+parentDir = os.path.dirname(cwd)
+DEFAULT_ICON_PATH = parentDir + "/bell.ico"
 
 class WinToast:
     def __init__(self):
@@ -28,7 +23,7 @@ class WinToast:
         if not Path(iconPath).is_file(): # if the icon is not exists
             self.iconPath = DEFAULT_ICON_PATH
         else: self.iconPath = iconPath
-        
+
     def GenerateToast(self):
         self.toaster = WindowsToaster(self.title)
         self.newToast = ToastImageAndText1()
@@ -47,44 +42,49 @@ def GoToast(title, body, duration, iconPath):
     toaster.ShowToast()
 
 def Input():
-    print("Chuong trinh tao toast tren windows.")
-    title = input("Nhap title cua toast: ")
-    body = input("Nhap body cua toast: ")
-    duration = int(input("Nhap duration (Default : 0, Short : 1, Long : 2): "))
-        
-    if duration == 1:
-        duration = "short"
-    elif duration == 2:
-        duration = "long"
-    else:
+    print("Toast generating program on windows.")
+    title = input("Enter the toast title: ")
+    body = input("Enter the toast body: ")
+    try:
+        duration = int(input("Enter the toast duration (Default : 0, Short : 1, Long : 2): "))
+        if duration == 1:
+            duration = "short"
+        elif duration == 2:
+            duration = "long"
+        else:
+            duration = "Default"
+    except e:
+        print("--Duration invalid, default duration selected")
         duration = "Default"
-    iconPath = input("Nhap icon path: ")
+        
+   
+    iconPath = input("Enter icon path: ")
     return (title, body, duration, iconPath)
 
 #First Param: Title
 #Second Param: Body
 #Third Param: Duration (short, default, long)
-#Fourth Param: Icon Path
-#Fifth Param: Repeat time interval (in minutes)
+#Fourth Param: Repeat time interval (in minutes)
+#Fifth Param: Icon Path
 if __name__ == "__main__":
     print("Program starts.")
     if len(sys.argv) > 1 : #command line arguments passed in - called by another program
         title = sys.argv[1]
         body = sys.argv[2]
         duration = sys.argv[3]
-        iconPath = ""
-        repeatInterval = sys.argv[5]
+        repeatInterval = sys.argv[4]
+        iconPath = sys.argv[5]
 
-        if len(sys.argv) >= 6 and issubclass(type(sys.argv[4]), str): # use icon
-            iconPath = sys.argv[4]
+        if len(sys.argv) >= 6 and issubclass(type(sys.argv[5]), str): # use icon
+            iconPath = sys.argv[5]
     else : # taking user input from command line
         title, body, duration, iconPath = Input()
-        repeatInterval = int(input("Nhap thoi gian ban muon thong bao lap lai (phut): "))
+        repeatInterval = int(input("Enter the time you want the toast to repeat (minutes): "))
         
 
     print("Program processing...")
-    stop = False
-    while not stop:
+    # Repeated toasting
+    while True:
         GoToast(title, body, duration, iconPath)
         currentTime = datetime.now()
         nextTime = currentTime + timedelta(seconds = repeatInterval * 60)
