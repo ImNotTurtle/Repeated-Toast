@@ -1,6 +1,10 @@
 # Repeated-Toast
 This program will help you on generating notification (toast) on windows for every specified interval of time.
 
+# How to use
+Just open the terminal and run the program! How easy it is
+Note: making sure you has install libraries as imported in the main.py in order to make the program run properly
+
 # The toast has several parameters:
 1. The notification title
 2. The notification body
