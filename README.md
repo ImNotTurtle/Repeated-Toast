@@ -12,3 +12,11 @@ Note: making sure you has install libraries as imported in the main.py in order 
 4. The notification icon (optional, leaving "" if you dont want to specify)
 5. The notification repeat duration (count in minutes)
 
+# Program Requirements
+1. Python 3.12.7
+2. window_toasts 1.3.0
+
+# Installation
+1. Clone the repository
+2. Install dependencies: py -m pip install windows_toasts==1.3.0
+3. Run the program
