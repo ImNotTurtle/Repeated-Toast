@@ -15,6 +15,7 @@ Note: making sure you has install libraries as imported in the main.py in order 
 # Program Requirements
 1. Python 3.12.7
 2. window_toasts 1.3.0
+3. Windows 10 Operating System
 
 # Installation
 1. Clone the repository
